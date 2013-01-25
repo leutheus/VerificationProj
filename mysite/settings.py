@@ -1,9 +1,31 @@
 # Django settings for mysite project.
 
+import json
 import os
 
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    # production settings
+    f = os.environ['CRED_FILE']
+    db_data = json.load(open(f))['MYSQLS']
+
+    db_config = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': db_data['MYSQLS_DATABASE'],
+        'USER': db_data['MYSQLS_USERNAME'],
+        'PASSWORD': db_data['MYSQLS_PASSWORD'],
+        'HOST': db_data['MYSQLS_HOSTNAME'],
+        'PORT': db_data['MYSQLS_PORT'],
+    }
+except KeyError, IOError:
+    # development/test settings:
+    db_config = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),
+    }
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,14 +37,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),  # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+    'default': db_config,
 }
 
 # Local time zone for this installation. Choices can be found here:
