@@ -1,0 +1,12 @@
+<h1>Detail page of {{benchmark_user }} :  </h1>  <br>
+
+Recently tested: 
+
+{% if run_list %}
+	<p> Here are the runs </p>
+	{% for run in run_list %}
+		<p> {{ run }} </p>
+	{% endfor %}
+{% else %}
+    <p>No benchmarks are available.</p>
+{% endif %}	

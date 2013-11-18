@@ -1,0 +1,9 @@
+{% if benchmark_list %}
+    <ul>
+    {% for benchmark in benchmark_list %}
+        <li><a href="/database/{{ benchmark.user }}/">{{ benchmark.user }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No benchmarks are available.</p>
+{% endif %}
