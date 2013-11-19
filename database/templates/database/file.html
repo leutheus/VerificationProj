@@ -1,0 +1,53 @@
+<h1>Detail page of {{file_name }} :  </h1>  <br>
+
+
+
+{%for f in file%}
+	<div >
+	<table border="1px" style="background: #81F781">
+		<tr>
+			<td>Name: </td> 
+			<td> {{f.filename}} </td>
+		</tr>
+		<tr>
+			<td> Größe: </td>
+			<td>{{f.filesize }}	</td>
+		</tr>
+		<tr>
+			<td>Hinzugefügt: </td>
+			<td>{{f.date_added}} </td>
+		</tr>
+		<tr>
+			<td>Zuletzt getestet: </td>
+			<td>{{f.date_tested}} </td>
+		</tr>
+		<tr>
+			<td>Erwartetes Ergebnis:</td>
+			<td> {{f.expected_result}}</td> 
+		</tr>
+		<tr>
+			<td>Verifiziertes Ergebnis:</td>
+			<td> {{f.tested_result}} </td>
+		</tr>
+	</table>
+	</div>
+	<textarea cols="80", rows="20">{{text}}</textarea>
+	
+	<br>
+{% endfor %}
+
+
+
+<h4>Last Configurations: </h4>
+{%for c in config%}
+	<div style="background:#ffffa0; border:2px solid black">
+	{{ c }} {{c.id }} <br> Timelimit: {{ c.timelimit }} 
+	</div>
+	 <br>
+{% endfor %}
+
+
+
+<footer style="position:relative;margin-top: 100px; text-align:center; display: block">
+	<a href="/database">Zurück</a>
+</footer>

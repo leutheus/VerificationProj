@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from database.models import Benchmark, Run
+from database.models import Benchmark, Run, Testfile, Configuration
 from django.template import RequestContext, loader
 
 # Create your views here.
@@ -38,10 +38,18 @@ def searchFile(request):
 	return HttpResponseRedirect('/database/searchFile/' + searchFile)
 
 def file(request, file_name):
-
+	
+	file2 = Testfile.objects.filter(filename=file_name)
+	for fi in file2:
+		text = open(fi.binary.path)
+		text = text.read()
+	config = Configuration.objects.all()
 	template = loader.get_template('database/file.html')
 	context = RequestContext(request, {
-		'file_name': file_name
+		'file_name': file_name,
+		'file': file2,
+		'config': config,
+		'text': text,
 		})
 
 	return HttpResponse(template.render(context))

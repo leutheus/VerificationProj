@@ -5,7 +5,7 @@ from django.db import models
 
 
 
-class File(models.Model):
+class Testfile(models.Model):
 	filename = models.CharField(max_length=255)
 	filesize = models.IntegerField(default=0)
 	date_added = models.DateTimeField('date added')
@@ -13,6 +13,10 @@ class File(models.Model):
 	expected_result = models.CharField(max_length=255)
 	tested_result = models.CharField(max_length=255)
 	binary = models.FileField(db_index = True, upload_to ='testfiles')
+
+	def __unicode__(self):
+		return self.filename
+
 
 class Configuration(models.Model):
 	timelimit = models.IntegerField(default=0)
