@@ -10,20 +10,45 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import json
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd9vzkn6ruxmt(ffusiop%f=0e_rh&!mxnvcroq-fh3&(u)j-6_'
+try:
+    f = os.environ['CRED_FILE']
+    db_data = json.load(open(f))['MYSQL']
 
-# SECURITY WARNING: don't run with debug turned on in production!
+    db_config = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': db_data['MYSQLS_DATABASE'],
+        'USER': db_data['MYSQLS_USERNAME'],
+        'PASSWORD': db_data['MYSQLS_PASSWORD'],
+        'HOST': db_data['MYSQLS_HOSTNAME'],
+        'PORT': db_data['MYSQLS_PORT'],
+    }
+except KeyError, IOError:
+    # development/test settings:
+    db_config = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),
+    }
+
+
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': db_config,
+}
 ALLOWED_HOSTS = []
 
 
@@ -36,7 +61,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'database'
+    'database',
+    'gunicorn',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,23 +78,16 @@ ROOT_URLCONF = 'myproject.urls'
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
+TEMPLATE_DIRS = (
+    '{0}/templates/'.format(PROJECT_ROOT),
+)
 
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Berlin'
 
 USE_I18N = True
 
@@ -81,3 +100,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+)
+STATIC_ROOT = ''
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
