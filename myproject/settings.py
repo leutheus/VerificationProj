@@ -108,6 +108,23 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = ''
 
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '_rs%0pq1+b#@-&amp;gbd0y%hb_t9w(tz5n-hpv1b!k=&amp;0=@ve*t7n'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
