@@ -1,15 +1,23 @@
 
 <h3> Suche Benchmarks von Benutzern </h3>
 <form action="search/" method="get">
-	<input type="text" name="name" value="test">
+	<input type="text" name="name" value="Benutzername">
 	
 {%  csrf_token %}
 <input type="submit" value="Suche">
 
+</form>
 
 
+<h3> Suche nach Dateien </h3>
+<form action="searchFile/" method="post">
+	{% csrf_token %}
+	<input type="text" name="filename" value="Dateiname">
+	<input type="submit" value="Suchen">
+</form>
 
-<h3>Recent Benchmarks of our users </h3>
+
+<h3>Kürzlich aktive Benutzer </h3>
 
 {% if benchmark_list %}
     <ul>

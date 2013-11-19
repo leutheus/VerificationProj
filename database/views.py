@@ -31,3 +31,17 @@ def detail(request, benchmark_user):
 def search(request): 
 	search = request.GET.get('name')
 	return HttpResponseRedirect('/database/' + search)
+
+
+def searchFile(request):
+	searchFile = request.POST.get('filename')
+	return HttpResponseRedirect('/database/searchFile/' + searchFile)
+
+def file(request, file_name):
+
+	template = loader.get_template('database/file.html')
+	context = RequestContext(request, {
+		'file_name': file_name
+		})
+
+	return HttpResponse(template.render(context))
