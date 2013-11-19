@@ -1,3 +1,7 @@
+branch Cloudcontrol contains some changes to run Django app on
+www.cloudcontrol.com
+
+
 VerificationProj
 ================
 
