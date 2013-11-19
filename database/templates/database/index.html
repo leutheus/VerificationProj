@@ -1,3 +1,16 @@
+
+<h3> Suche Benchmarks von Benutzern </h3>
+<form action="search/" method="get">
+	<input type="text" name="name" value="test">
+	
+{%  csrf_token %}
+<input type="submit" value="Suche">
+
+
+
+
+<h3>Recent Benchmarks of our users </h3>
+
 {% if benchmark_list %}
     <ul>
     {% for benchmark in benchmark_list %}
