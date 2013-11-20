@@ -1,3 +1,9 @@
+{% extends "database/base.html" %}
+
+{% block title %} {{benchmark_user }} {% endblock %}
+
+
+{% block content %}
 <h1>Detail page of {{benchmark_user }} :  </h1>  <br>
 
 Recently tested: 
@@ -11,6 +17,4 @@ Recently tested:
     <p>No benchmarks are available.</p>
 {% endif %}	
 
-
-
-Thats all!!
+{% endblock %}

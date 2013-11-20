@@ -63,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'database',
     'gunicorn',
+    'userauth',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,7 +84,9 @@ TEMPLATE_DIRS = (
 )
 
 
-
+LOGIN_URL = '/benutzer/anmelden/'
+LOGOUT_URL = '/benutzer/abmelden/'
+LOGIN_REDIRECT_URL = '/'
 
 LANGUAGE_CODE = 'en-us'
 

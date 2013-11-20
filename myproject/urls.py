@@ -5,9 +5,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'database.views.home', name='home'),
+   
     # url(r'^blog/', include('blog.urls')),
     url(r'^database/', include('database.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    
+    url(r'^benutzer/', include('userauth.urls')),
+    url(r'^$', 'database.views.home', name='home'),
 )

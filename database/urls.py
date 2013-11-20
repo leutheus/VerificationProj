@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^searchFile/$', views.searchFile, name='searchFile'),
     url(r'^(?P<benchmark_user>[\w+]*)/$', views.detail, name='detail'),
     url(r'^searchFile/(?P<file_name>[\w+]*.c)/$', views.file, name='file')
+    
 )
