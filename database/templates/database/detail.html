@@ -9,12 +9,13 @@
 Recently tested: 
 
 {% if run_list %}
-	<p> Here are the runs </p>
+	
 	{% for run in run_list %}
-		<p> {{ run }} </p>
+		<p> Test: {{ run }} </p>
 	{% endfor %}
 {% else %}
     <p>No benchmarks are available.</p>
 {% endif %}	
+
 
 {% endblock %}
