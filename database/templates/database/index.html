@@ -1,6 +1,9 @@
-{% block toggle_login %}
-        {% include "userauth/toggle_login.html" %}
-{% endblock %}
+
+{% extends "database/base.html" %}
+
+{% block title %}Cloud Verification{% endblock %}
+
+{% block content %}
 
 <h3> Suche Benchmarks von Benutzern </h3>
 <form action="search/" method="get">
@@ -32,3 +35,10 @@ z.B    "easy.c"     oder   "not-so-easy.c" <br>
 {% else %}
     <p>No benchmarks are available.</p>
 {% endif %}
+
+
+{% endblock %}
+
+{% block toggle_login %}
+        {% include "userauth/toggle_login.html" %}
+{% endblock %}
