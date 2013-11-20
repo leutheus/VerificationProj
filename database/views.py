@@ -53,3 +53,6 @@ def file(request, file_name):
 		})
 
 	return HttpResponse(template.render(context))
+
+def home(request):
+	return HttpResponse("Hallo")
