@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+     <link href="{% static "database/stylesheet.css"%}" type="text/css" rel="stylesheet"/>
+ <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+
+<body>
+    
+
+      
+    <div id="parent">
+        <div class="image" ><center><img  src="http://www.sosy-lab.org/images/sosylogo.png"/></center></div>
+        <div class="image" ><center><h3 >Verification Cloud</h3></center></div>
+        <div class="image" ><center><img  src="http://www.sosy-lab.org/images/unilogo.png"/></center></div>
+
+    <div style="clear:both"></div>
+    </div>
+
+     <br>
+    {% if user.is_authenticated %} 
+
+    <div id="content" >
+
+        
+            {% block content %}{% endblock %}
+       
+    </div>
+     
+    {% else %}
+
+   <center>Hallo bitte einloggen! </center><br>
+
+    {% endif %}
+    <div id="log">
+     {% block toggle_login %}
+        {% include "userauth/toggle_login.html" %}
+    {% endblock %}
+    </div>
+
+</body>
+</html>

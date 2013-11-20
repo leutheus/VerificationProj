@@ -1,0 +1,21 @@
+{% extends "database/base.html" %}
+
+{% block title %}Cloud Verification{% endblock %}
+
+{% block content %}
+	
+	<h2>Startseite von {{ user }} </h2>
+
+
+	Hier kann man zeug machen:
+		<ul>
+			<li> Meine Benchmarks <a href="database/{{user}}">{{user}}'s Benchmark</a></li>
+			<li> Meine Runs <a href="">{{user}}'s Runs</a></li>
+			<li> Suche nach Benutzer/Dateien <a href="database/">Suche</a> </li>
+		</ul>
+
+
+
+
+
+{% endblock %}

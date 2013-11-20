@@ -1,0 +1,33 @@
+body {
+	width: 800px;
+	border: 1px solid black;
+}
+
+div#outer {
+	width:800px;
+}
+
+div#left {
+	float:left; 
+	width:200px;
+}
+
+div#center {
+	float:left;
+	width:500px;
+}
+
+div#right {
+	float:left;
+	width: 200px;
+}
+
+#parent {
+    width: 800px;
+    border: 1px solid black;
+}
+
+.image {
+    float: left;
+    width: 266px;
+}
