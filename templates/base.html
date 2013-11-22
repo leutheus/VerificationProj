@@ -17,7 +17,7 @@
      <br>   
 
 
-{% if user.is_authenticated %} 
+    {% if user.is_authenticated %} 
 
     <div id="content" >
 
@@ -32,10 +32,11 @@
 
     {% endif %}
    
-    <div id="log">
-        {% block toggle_login %}
+    <div id="log" style="border: 1px solid black; position: absolute; bottom: 8px; width: 800px; height: 50px">
+       <center> {% block toggle_login %}
             {% include "userauth/toggle_login.html" %}
         {% endblock %}
+        </center>
     </div>
 
     </body>
