@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--<link rel="stylesheet" href="/static/stylesheet.css" /> -->
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+
+<body>
+
+
+
+    
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+
+    {% block toggle_login %}
+        {% include "userauth/toggle_login.html" %}
+    {% endblock %}
+</body>
+</html>

@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 # Create your views here.
-def test(request):
-	test = "jo"
-	template = loader.get_template('userauth/password_change_form.html')
+
+def index(request):
+	benchmark_list = None
+	template = loader.get_template('vericloud/index.html')
         context = RequestContext(request, {
-                        'test': test,
+                        'benchmark_list': benchmark_list,
                 })
 
         return HttpResponse(template.render(context))

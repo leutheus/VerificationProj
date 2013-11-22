@@ -1,0 +1,42 @@
+<!DOCTYPTE html>
+<html>
+
+    <head>
+        <title>{% block title %}My amazing site{% endblock %}</title>
+    </head>
+    <body style="width:800px;border:1px solid black">
+    
+     <div id="parent" style="width:800px; border:1px solid black">
+        <div class="image" style="width:250px; float:left "><center><img style="width=250px" src="http://www.sosy-lab.org/images/sosylogo.png"/></center></div>
+        <div style="width=300px; float:left "><center><h3 >Verification Cloud</h3></center></div>
+        <div class="image" style="width=250px;  "><center><img style="width=250px" src="http://www.sosy-lab.org/images/unilogo.png"/></center></div>
+
+    <div style="clear:both"></div>
+    </div>
+
+     <br>   
+
+
+{% if user.is_authenticated %} 
+
+    <div id="content" >
+
+        
+            {% block content %}{% endblock %}
+       
+    </div>
+     
+    {% else %}
+
+        <center>Hallo bitte einloggen! </center><br>
+
+    {% endif %}
+   
+    <div id="log">
+        {% block toggle_login %}
+            {% include "userauth/toggle_login.html" %}
+        {% endblock %}
+    </div>
+
+    </body>
+</html>
