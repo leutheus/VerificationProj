@@ -11,3 +11,15 @@ def index(request):
                 })
 
         return HttpResponse(template.render(context))
+
+
+
+def detail(request, benchmark_user):
+	return HttpResponse(benchmark_user)
+
+def addMark(request):
+	template = loader.get_template('vericloud/addMark.html')
+	context = RequestContext(request, {
+		'string': 'test'
+		})
+	return HttpResponse(template.render(context))

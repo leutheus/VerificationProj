@@ -7,6 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^benutzer/', include('userauth.urls')),
-    url(r'^$', include ('vericloud.urls')),
+    url(r'^vcloud/', include ('vericloud.urls')),
+    #url(r'^vcloud/', include ('vericloud.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
