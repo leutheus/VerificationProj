@@ -6,56 +6,59 @@
         <link rel="stylesheet" type="text/css" href="https://dl.dropboxusercontent.com/u/6804788/styles.css">
     </head>
     <body>
-    <div id="container">
-    <div id="header" >
-        <div class="image" style="width:250px; float:left "><center><img style="width=250px" src="http://www.sosy-lab.org/images/sosylogo.png"/></center></div>
-        <div style="width=300px; float:left "><center><h3 >Verification Cloud</h3></center></div>
-        <div class="image" style="width=250px;  "><center><img style="width=250px" src="http://www.sosy-lab.org/images/unilogo.png"/></center></div>
+    <div id="doc3" class="yui-t1">
+        <div id="hd">
+            <div id="header" >
+                <div class="image" style="width:33%;float:left "><center><img style="width=250px" src="http://www.sosy-lab.org/images/sosylogo.png"/></center></div>
+                <div style="width=33%; float:left "><center><h3 >Verification Cloud</h3></center></div>
+                <div class="image" style="width=33%;  "><center><img style="width=250px" src="http://www.sosy-lab.org/images/unilogo.png"/></center></div>
 
     
-    </div>
-
-    <div id="wrapper">
-        <div id="content">
-
-
-            Look at all this content I dont give a fuck about.
-            This is so much fun.
-            I cannot believe I am having this fun. <br>
-            This is like the funniest and most interesting thing I have ever done in my live.
-            {% if user.is_authenticated %} 
-            <p> {% block content %}{% endblock %}  <p>
-            {% else %}
-            <p> Hallo bitte einloggen! </p>
-            {% endif %}
+            </div>
         </div>
-    </div>
+        <div id="bd">
+
+            <div id="yui-main">
+                <div class="yui-b">
+                    <div class="content">
+               
+                {% if user.is_authenticated %} 
+                <p> {% block content %}{% endblock %}  </p>
+                {% else %}
+                <p> Hallo bitte einloggen! </p>
+                {% endif %}
+                </div>
+                </div>
+            </div>
+            <div class="yui-b">
+                <div id="secondary"> <strong>Navigation </strong>
+                <ul>
+                    <li>{{user.username}} Benchmarks </li>
+                    <li>{{user.username}} Runs </li>
+                    <li> Add Benchmark </li>
+                    <li> Add File </li>
+                    <li> Add Configuration </li>
+                    <li> Run Benchmark </li>
+                    <li> Run Single File </li>
+                </ul> 
+                </div>
+            </div>
+           
+        </div>
+    
 
 
-   <div id="navigation">
-        <p> <strong> Navigation </strong></p>
-        <ul>
-            <li>{{user.username }} Benchmarks </li>
-            <li>{{user.username }} Runs </li>
-            <li> Add new Benchmark </li>
-            <li> Add new File </li>
-            <li> Add new Configuration </li>
-            <li> Run Benchmark </li>
-            <li> Run Single File </li>
-            <li> Contact </li>
-        </ul>
-   </div>
+ 
    
 
-   <div id="extra">
-    <p> <strong> Additional Inforamtions </strong></p>
-    <p> Info info info </p>
-   </div>
-    <div id="footer">
+  
+    <div id="ft">
+        <div id="footer">
        <center> {% block toggle_login %}
             {% include "userauth/toggle_login.html" %}
         {% endblock %}
         </center>
+        </div>
     </div>
     </div>
     </body>
