@@ -2,7 +2,8 @@
 {% block title %} New File {% endblock %}
 {% block content %}
 <h3> Add new File </h3>
-<form action="/vcloud/addFile/" method="post">{% csrf_token %}
+<form action="/vcloud/addFile/" method="post" enctype="multipart/form-data">{% csrf_token %}
 {{ form.as_p }}
-
+<input type="submit">
+</form>
 {% endblock %}
