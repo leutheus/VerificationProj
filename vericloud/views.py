@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
+from vericloud.models import Benchmark,  Testfile
 # Create your views here.
+
+from django import forms
 
 def index(request):
 	benchmark_list = None
@@ -15,11 +18,33 @@ def index(request):
 
 
 def detail(request, benchmark_user):
-	return HttpResponse(benchmark_user)
+	return HttpResponse("verhext")
+
+
+
 
 def addMark(request):
-	template = loader.get_template('vericloud/addMark.html')
-	context = RequestContext(request, {
-		'string': 'test'
-		})
-	return HttpResponse(template.render(context))
+
+	if (request.method == 'POST'):
+		return HttpResponse("LOL")
+	else:
+		form = ContactForm()
+		run_list = Testfile.objects.all()
+	return render(request, 'vericloud/addMark.html', {
+        'form': form,
+        'run_list' : run_list,
+    })
+	
+def addFile(request):
+	if(request.method == 'POST'):
+		return HttpResponse("Add to Database lul")
+	else:
+		form = ContactForm()
+
+	return render(request, 'vericloud/addFile.html', {
+		'form' : form
+	})
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    

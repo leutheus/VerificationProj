@@ -14,9 +14,9 @@ class Testfile(models.Model):
                 return self.filename
 
 class Benchmark(models.Model):
-        run = models.ForeignKey(Testfile)
-        user = models.CharField(max_length=255)
-        duration = models.IntegerField(default=0)
-        
-        def __unicode__(self):
-                return self.user
+    run = models.ForeignKey(Testfile)
+    user = models.CharField(max_length=255)
+    duration = models.IntegerField(default=0)
+    name = models.CharField(max_length=100)    
+    def __unicode__(self):
+        return self.user

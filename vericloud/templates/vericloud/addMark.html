@@ -1,1 +1,19 @@
-{% extends base.html %}
+
+{% extends "base.html" %}
+{% block title %} New Benchmark {% endblock %}
+{% block content %}
+<h3> Add new Benchmark </h3>
+<form action="/vcloud/addMark/" method="post">{% csrf_token %}
+{{ form.as_p }}
+
+
+{% for run in run_list %}
+ <input type="radio" {{ run }}
+ {% empty %}
+ 	<li> No runs yet </li>
+{% endfor %}
+<input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}
