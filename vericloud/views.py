@@ -38,11 +38,15 @@ def addMark(request):
 def addFile(request):
 	if(request.method == 'POST'):
 		form = FileForm(request.POST, request.FILES)
-		if form.is_valid():
-			file = request.FILES['binary']
-			
-			return HttpResponse("Add to Database lul ")
-		
+		#if form.is_valid():
+		file = request.FILES['binary']
+		f = open('testfiles/' + file.name)
+		string = f.read()
+		print string
+		return render(request, 'vericloud/fileDetail.html', {
+			'file': file,
+			'string': string,
+		})		
 		
 	else:
 		form = FileForm()
