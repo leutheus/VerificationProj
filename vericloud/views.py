@@ -52,7 +52,7 @@ def addFile(request):
 			hsh.update(data)
 			sha1 = hsh.hexdigest()
 
-			inDB = Testfile.objects.get(sha1 = sha1)
+			inDB = Testfile.objects.filter(sha1 = sha1)
 
 			if inDB:
 				form = FileForm();
