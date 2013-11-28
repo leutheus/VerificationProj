@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from vericloud.models import Benchmark,  Testfile
+import hashlib
 # Create your views here.
 
 from django import forms
@@ -38,15 +39,48 @@ def addMark(request):
 def addFile(request):
 	if(request.method == 'POST'):
 		form = FileForm(request.POST, request.FILES)
-		#if form.is_valid():
-		file = request.FILES['binary']
-		f = open('testfiles/' + file.name)
-		string = f.read()
-		print string
-		return render(request, 'vericloud/fileDetail.html', {
-			'file': file,
-			'string': string,
-		})		
+		if form.is_valid():
+
+			#read file
+			file = request.FILES['binary']
+			data = file.read()
+			file.seek(0)
+
+			expResult = request.POST.get('expected_Result')
+
+			hsh = hashlib.sha1()
+			hsh.update(data)
+			sha1 = hsh.hexdigest()
+
+			inDB = Testfile.objects.get(sha1 = sha1)
+
+			if inDB:
+				form = FileForm();
+				return render(request, 
+					'vericloud/addFile.html', {
+					'form' : form,
+					'error': "sha1 bereits vorhanden"
+				})
+
+			newfile = Testfile(
+				sha1 = sha1,
+				filename = file,
+				filesize = file.size, 
+				binary= file,
+				expected_result = expResult)
+			newfile.save();
+
+
+			return render(request, 'vericloud/fileDetail.html', {
+				'file':file,
+				'string':data,
+				'expResult': expResult,
+				'digest':sha1
+			
+		})	
+		
+		
+			
 		
 	else:
 		form = FileForm()
@@ -60,5 +94,8 @@ class ContactForm(forms.Form):
     
 class FileForm (forms.Form):
 	binary = forms.FileField(label='Select a file')
+	expected_Result = forms.ChoiceField(
+		choices = [('SAFE', 'SAFE'), ('UNSAFE', 'UNSAFE')], 
+		widget=forms.RadioSelect())
 
 

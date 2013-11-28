@@ -2,8 +2,9 @@
 {% block title %} New File {% endblock %}
 {% block content %}
 <h3> Add new File </h3>
-	
 	<label>Filename: </label> {{ file.name }} <br>
 	<label>Filesize: </label> {{ file.size }} byte<br>
-	<textarea> {{ string }} </textarea>
+	<label>FileHash: </label> {{ digest }} <br>
+	<label>Expected Result: </label> {{ expResult }} <br>
+	<textarea rows="9"> {{ string }} </textarea> 
 {% endblock %}

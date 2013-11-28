@@ -2,9 +2,27 @@
 {% block title %} New File {% endblock %}
 {% block content %}
 <h3> Add new File </h3>
-<form action="/vcloud/addFile/" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="existingfile" >
+<h3> From filesystem </h3>
+
+<form action="/vcloud/addFile/" method="post" enctype="multipart/form-data" id="formFile">
+{% csrf_token %}
+<strong> <color="red">{{ error }} </color="red"> </strong>
 {{ form.as_p }}
-<input type="file" multiple name="filez">
+
 <input type="submit">
 </form>
+</div>
+
+<div class="copycode" >
+	<h3> Copy and paste </h3>
+	<form action="vcloud/newFile/" method="post" id="copyFile">
+	{% csrf_token %}
+	<input type="text" value="Filename">
+	<br>
+	<textarea rows=9>  </textarea>
+	<br>
+	<input type="submit">
+	</form>
+</div>
 {% endblock %}
