@@ -5,6 +5,7 @@
 
 {% block js %}
 	 <script src="https://dl.dropboxusercontent.com/u/6804788/TableSort.js"></script> 
+	 <script src="https://dl.dropboxusercontent.com/u/6804788/jquery-2.0.3.min.js"></script>
 	 <style>
 	 	div.scrollcontainer {
 	 		height: 80%;
@@ -15,7 +16,7 @@
 	 		margin-top: 2%;
 	 		display: inline-block;
 	 	}
-	 	.innen {
+	 	#innen {
 	 		height: 80%;
 	 	}
 	 	.sortierbar {
@@ -31,12 +32,38 @@
 	 	tr  {
 	 		display: table-row;
 	 	}
+	 	
 	 </style>
+
+	 <script>
+	 	$(document).ready(function() {
+	 		$("#searchBox").bind("keyup", function() {
+	 			var searchString = $(this).val();
+
+	 			if(searchString.length > 0) {
+	 				$("td:first-child").each(function(counterEntries) {
+	 					var item= $(this).text();
+	 					(item.match(searchString)) ? $(this).parent("tr").show() : $(this).parent("tr").hide();
+	 				});
+	 			} else {
+	 				$(".sortierbar tbody tr").show();
+	 			}
+	 		});
+	 	});
+	 </script>
 {% endblock %}
 
 {% block content %}
-<div class="scrollcontainer">
-<div class="innen">
+
+
+
+
+<div class="scrollcontainer">   
+
+
+	<label>Suche Datei </label> <input type"text" id="searchBox">
+
+<div id="innen">
 <table class="sortierbar">
 	<thead>
 		<tr>
@@ -49,7 +76,7 @@
 	<tbody>
 		{% for file in list %}
 		<tr>
-			<td> {{ file }} </td>
+			<td > {{ file }} </td>
 			<td> {{ file.filesize }} byte </td>
 			<td> {{ file.date_added }} </td>
 			<td> {{ file.expected_result }} </td>
