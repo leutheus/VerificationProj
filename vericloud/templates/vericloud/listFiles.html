@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}
+	 All Files 
+{% endblock %}
+
+{% block js %}
+	 <script src="https://dl.dropboxusercontent.com/u/6804788/TableSort.js"></script> 
+	 <style>
+	 	div.scrollcontainer {
+	 		height: 80%;
+	 		overflow: auto;
+	 		
+	 		width: 80%;
+	 		margin-left: 10%;
+	 		margin-top: 2%;
+	 		display: inline-block;
+	 	}
+	 	.innen {
+	 		height: 80%;
+	 	}
+	 	.sortierbar {
+	 		border: 1px solid black;
+	 		border-radius: 5px;
+	 		width: 100%;
+	 		background-color: #f3f2ed;
+	 	}
+	 	th {
+	 		min-width: 250px;
+	 		background-color: white;
+	 	}
+	 	tr  {
+	 		display: table-row;
+	 	}
+	 </style>
+{% endblock %}
+
+{% block content %}
+<div class="scrollcontainer">
+<div class="innen">
+<table class="sortierbar">
+	<thead>
+		<tr>
+			<th class="sortierbar vorsortiert+">Name </th>
+			<th class="sortierbar">Filesize</th>
+			<th class="sortierbar">Date added </th>
+			<th class="sortierbar">Expected result </th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for file in list %}
+		<tr>
+			<td> {{ file }} </td>
+			<td> {{ file.filesize }} byte </td>
+			<td> {{ file.date_added }} </td>
+			<td> {{ file.expected_result }} </td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+</div>
+{% endblock %}

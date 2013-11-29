@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% block title %} New File {% endblock %}
+{%block js %} 
+<script src="https://dl.dropboxusercontent.com/u/6804788/codemirror.js"></script>
+<script src="https://dl.dropboxusercontent.com/u/6804788/clike.js"></script>
+<link href="https://dl.dropboxusercontent.com/u/6804788/codemirror.css" type="text/css" rel="stylesheet">
+<style>
+	.CodeMirror {
+		height: 200px;
+		width: 800px;
+	}
+</style>
+{% endblock %}
 {% block content %}
 <h3> Add new File </h3>
 <div class="existingfile" >
@@ -16,11 +27,17 @@
 
 <div class="copycode" >
 	<h3> Copy and paste </h3>
-	<form action="vcloud/newFile/" method="post" id="copyFile">
+	<form action="/vcloud/newFile/" method="post" id="copyFile">
 	{% csrf_token %}
-	<input type="text" value="Filename">
+	<label>Filename: </label><input type="text" value=".c">
 	<br>
-	<textarea rows=9>  </textarea>
+	<textarea id="c-code" style="display:none"></textarea>
+	<script>
+		var cEditor = CodeMirror.fromTextArea(document.getElementById("c-code"), {
+			mode:"text/x-csrc",
+			lineNumbers: true,
+		});
+	</script>
 	<br>
 	<input type="submit">
 	</form>

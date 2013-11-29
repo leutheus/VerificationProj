@@ -21,7 +21,8 @@ def index(request):
 def detail(request, benchmark_user):
 	return HttpResponse("verhext")
 
-
+def newFile(request):
+	return HttpResponse("lulz")
 
 
 def addMark(request):
@@ -35,7 +36,16 @@ def addMark(request):
         'form': form,
         'run_list' : run_list,
     })
+
+def listFiles(request):
+
+	list = Testfile.objects.all()
+
+	return render(request, 'vericloud/listFiles.html', {
+		'list':list,
+		})
 	
+
 def addFile(request):
 	if(request.method == 'POST'):
 		form = FileForm(request.POST, request.FILES)
@@ -52,6 +62,7 @@ def addFile(request):
 			hsh.update(data)
 			sha1 = hsh.hexdigest()
 
+			#check if file already in database
 			inDB = Testfile.objects.filter(sha1 = sha1)
 
 			if inDB:
