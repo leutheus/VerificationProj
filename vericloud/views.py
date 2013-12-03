@@ -19,7 +19,7 @@ def index(request):
 
 
 def detail(request, benchmark_user):
-	return HttpResponse("verhext")
+	return HttpResponse(benchmark_user)
 
 def newFile(request):
 	return HttpResponse("lulz")
