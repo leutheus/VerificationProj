@@ -8,8 +8,12 @@ VerificationProj
 ws2013/14 software verification project 
 
 
-TODO:  USEFUL LINKS??
-https://bitbucket.org/mchaput/whoosh/wiki/Home
 
-
-http://lucene.apache.org/pylucene/
+requires:  
+  Django
+  Python Postgres Driver   http://initd.org/psycopg/download/
+  Gunicorn
+  
+Adjust: 
+  Database Settings in settings.py 
+  MEDIA-ROOT in settings.py
