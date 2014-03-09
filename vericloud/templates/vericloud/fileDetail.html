@@ -6,19 +6,15 @@
 <link href="https://dl.dropboxusercontent.com/u/6804788/codemirror.css" type="text/css" rel="stylesheet">
 <style>
 	.CodeMirror {
-		height: 200px;
-		width: 800px;
+        margin-left: 2%;
+		height: 95%;
+		width: 96%;
 	}
 </style>
 {% endblock %}
 {% block content %}
 
-<h3> Add new File </h3>
-	<label>Filename: </label> {{ file.name }} <br>
-	<label>Filesize: </label> {{ file.size }} byte<br>
-	<label>FileHash: </label> {{ digest }} <br>
-	<label>Expected Result: </label> {{ expResult }} <br>
-	<textarea rows="9" id="c-code"> {{ string }} </textarea> 
+	<textarea rows="9" id="c-code">{{ file }}</textarea>
 	<script>
 		var cEditor = CodeMirror.fromTextArea(document.getElementById("c-code"), 
 		{

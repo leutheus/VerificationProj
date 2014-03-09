@@ -12,12 +12,13 @@ try:
     db_data = json.load(open(f))['MYSQLS']
 
     db_config = {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': db_data['MYSQLS_DATABASE'],
-        'USER': db_data['MYSQLS_USERNAME'],
-        'PASSWORD': db_data['MYSQLS_PASSWORD'],
-        'HOST': db_data['MYSQLS_HOSTNAME'],
-        'PORT': db_data['MYSQLS_PORT'],
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'vcloud',                      # Or path to database file if using sqlite3.
+            # The following settings are not used with sqlite3:
+            'USER': 'admin',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+            'PORT': '',
     }
 except KeyError, IOError:
     # development/test settings:
@@ -25,7 +26,6 @@ except KeyError, IOError:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '{0}/mysite.sqlite3'.format(PROJECT_ROOT),
     }
-
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -37,7 +37,14 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': db_config,
+    'default': {
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': 'vcloud',
+        'USER': 'admin',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
 
 # Local time zone for this installation. Choices can be found here:
@@ -65,7 +72,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/home/leutheus/workspace/VerifierCloud/testfiles/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -84,22 +91,23 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 #STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Put strings here, like "/home/html/static" or "C:/www/django/static".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 #)
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, "static"),
     '/var/www/static/',
 )
-print os.path.join(PROJECT_ROOT, "static")
+print
+os.path.join(PROJECT_ROOT, "static")
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -108,8 +116,8 @@ SECRET_KEY = '_rs%0pq1+b#@-&amp;lbd0y%hb_t9w(tz5n-hpv1b!k=&amp;0=@ve*t7n'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.app_directories.Loader'
+    #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -131,7 +139,6 @@ TEMPLATE_DIRS = (
     '{0}/templates/'.format(PROJECT_ROOT),
 )
 
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -146,8 +153,6 @@ INSTALLED_APPS = (
     'userauth',
     'vericloud',
 )
-
-
 
 LOGIN_URL = '/benutzer/anmelden/'
 LOGOUT_URL = '/benutzer/abmelden/'

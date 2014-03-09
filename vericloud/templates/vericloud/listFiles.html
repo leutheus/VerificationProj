@@ -8,12 +8,12 @@
 	 <script src="https://dl.dropboxusercontent.com/u/6804788/jquery-2.0.3.min.js"></script>
 	 <style>
 	 	div.scrollcontainer {
-	 		height: 80%;
+	 		height: 95%;
 	 		overflow: auto;
 	 		
-	 		width: 80%;
-	 		margin-left: 10%;
-	 		margin-top: 2%;
+	 		width: 99%;
+	 		margin-left: 1%;
+	 		margin-top: 1%;
 	 		display: inline-block;
 	 	}
 	 	#innen {
@@ -22,16 +22,16 @@
 	 	.sortierbar {
 	 		border: 1px solid black;
 	 		border-radius: 5px;
-	 		width: 100%;
 	 		background-color: #f3f2ed;
 	 	}
 	 	th {
-	 		min-width: 250px;
+	 		min-width: 20px;
 	 		background-color: white;
 	 	}
 	 	tr  {
 	 		display: table-row;
 	 	}
+
 	 	
 	 </style>
 
@@ -41,7 +41,7 @@
 	 			var searchString = $(this).val();
 
 	 			if(searchString.length > 0) {
-	 				$("td:first-child").each(function(counterEntries) {
+	 				$("td:nth-child(2)").each(function(counterEntries) {
 	 					var item= $(this).text();
 	 					(item.match(searchString)) ? $(this).parent("tr").show() : $(this).parent("tr").hide();
 	 				});
@@ -61,27 +61,33 @@
 <div class="scrollcontainer">   
 
 
-	<label>Suche Datei </label> <input type"text" id="searchBox">
+	<label>Suche Datei </label> <input type="text" id="searchBox">
 
 <div id="innen">
 <table class="sortierbar">
+    <colgroup>
+       <col span="1" style="width: 15%;">
+       <col span="1" style="width: 70%;">
+       <col span="1" style="width: 15%;">
+    </colgroup>
 	<thead>
 		<tr>
-			<th class="sortierbar vorsortiert+">Name </th>
-			<th class="sortierbar">Filesize</th>
-			<th class="sortierbar">Date added </th>
-			<th class="sortierbar">Expected result </th>
+			<th class="sortierbar vorsortiert+" >ID </th>
+			<th class="sortierbar">Path</th>
+			<th class="sortierbar">Hash </th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for file in list %}
 		<tr>
-			<td > {{ file }} </td>
-			<td> {{ file.filesize }} byte </td>
-			<td> {{ file.date_added }} </td>
-			<td> {{ file.expected_result }} </td>
+			<td > {{ file.id }} </td>
+			<td> <a href="/vcloud/files/{{file.hash}}">{{ file.path }}</a>  </td>
+			<td> {{ file.hash }} </td>
+
 		</tr>
 		{% endfor %}
+
+
 	</tbody>
 </table>
 </div>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+	 All Files
+{% endblock %}
+{% block content %}
+<h1>Run Result </h1>
+{% if result %}
+
+RunResult for command: {{result.run}} <br><br>
+From {{ result.timestamp_of_completion }}  <br>
+
+<ul>
+      <li> Used file_hierarchy parent value: <a href="/vcloud/filehierarchy/{{result.files }}">FileHierarchy Parent</a></li>  <br>
+
+      <li>StdOut: {{ result.std_out }}</li>  <br>
+
+       <li>StdErr: {{ result.std_err }}</li>  <br>
+
+       <li>Verdict: {{ restult.verdict }}</li> <br>
+      <li>Max_Memory: {{ result.max_memory }}</li> <br>
+    <li>Host_information: {{ result.host_information }}</li> <br>
+    <li>Walltime: {{ result.wall_time }} </li>  <br>
+</ul>
+
+{% else %}
+
+       No result found!
+
+{% endif %}
+
+{% endblock %}

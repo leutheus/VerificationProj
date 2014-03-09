@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+	 RunResult
+{% endblock %}
+
+
+{%block js %}
+    <script src="https://dl.dropboxusercontent.com/u/6804788/TableSort.js"></script>
+
+        <style>
+	 	div.scrollcontainer {
+	 		height: 93%;
+	 		overflow: auto;
+
+	 		width: 99%;
+	 		margin-left: 1%;
+	 		margin-top: 1%;
+	 		display: inline-block;
+	 	}
+	 	#innen {
+	 		height: 80%;
+	 	}
+	 	.sortierbar {
+	 		border: 1px solid black;
+	 		border-radius: 5px;
+	 		width: 100%;
+	 		background-color: #f3f2ed;
+	 	}
+	 	th {
+	 		min-width: 250px;
+	 		background-color: white;
+	 	}
+	 	tr  {
+	 		display: table-row;
+	 	}
+
+	 </style>
+{% endblock %}
+
+{% block content %}
+
+{% if runs %}
+
+<div class="scrollcontainer">
+    <div id="innen">
+    <table class="sortierbar" width="98%">
+	    <thead>
+		    <tr>
+			    <th class="sortierbar vorsortiert+">Result for ID </th>
+			    <th class="sortierbar" ">Command</th>
+			    <th class="sortierbar">Timestamp </th>
+			    <th class="sortierbar">Limitation </th>
+                <th class="sortierbar">Requirement </th>
+                <th class="sortierbar">Priority </th>
+		    </tr>
+	    </thead>
+	    <tbody>
+		{% for run in runs %}
+		    <tr>
+			    <td > <a href="/vcloud/results/{{run.id}}">{{ run.id }}</a>  </td>
+			    <td>  <textarea style="width: 600px; font-size: .9em">{{ run.command }}</textarea> </td>
+			    <td> {{ run.timestamp }} </td>
+			    <td>{{ run.limitations }} </td>
+                <td> {{ run.requirements }} </td>
+                <td> <center>{{ run.priority }}</center></td>
+                <td> </td>
+		    </tr>
+		{% endfor %}
+
+    	</tbody>
+    </table>
+    </div>
+</div>
+{% else %}
+       Nothing in DB, sorry!
+{% endif %}
+{% endblock %}

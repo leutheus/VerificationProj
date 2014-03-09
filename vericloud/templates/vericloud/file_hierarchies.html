@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+	 RunResult
+{% endblock %}
+{%block js %}
+
+
+        <style>
+	 	div.scrollcontainer {
+	 		height: 93%;
+	 		overflow: auto;
+
+	 		width: 99%;
+	 		margin-left: 1%;
+	 		margin-top: 1%;
+	 		display: inline-block;
+	 	}
+	 	#innen {
+	 		height: 80%;
+	 	}
+	 	.sortierbar {
+	 		border: 1px solid black;
+	 		border-radius: 5px;
+	 		width: 100%;
+	 		background-color: #f3f2ed;
+	 	}
+	 	th {
+	 		min-width: 250px;
+	 		background-color: white;
+	 	}
+	 	tr  {
+	 		display: table-row;
+	 	}
+
+	 </style>
+{% endblock %}
+{% block content %}
+<div class="scrollcontainer">
+    <div id="innen">
+   {% for fileHierarchy in file_hierarchies %}
+        <a href="/vcloud/files/{{ fileHierarchy.file_id.hash }}">{{ fileHierarchy.file_id.path }}</a> <br>
+    {% empty %}
+        Did not find a FileHierarchy!
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

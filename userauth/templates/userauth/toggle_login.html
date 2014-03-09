@@ -1,8 +1,8 @@
 
 {% if user.is_authenticated %}
     <p>{{ user.username }} |
-    <a href="{% url userauth_password_change %}">pw ändern</a> |
-    <a href="{% url userauth_logout %}">logout</a></p>
+    <a href="{% url "userauth_password_change" %}">pw ändern</a> |
+    <a href="{% url "userauth_logout" %}">logout</a></p>
 {% else %}
-    <p><a href="{% url userauth_login %}">login</a></p>
+    <p><a href="{% url "userauth_login" %}">login</a></p>
 {% endif %}

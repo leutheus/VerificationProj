@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from vericloud.models import Testfile, Benchmark
+from vericloud.models import  File, FileHierarchy, Limitation, Requirement, VerificationRun, VerificationResult
 # Register your models here.
-admin.site.register(Testfile)
-admin.site.register(Benchmark)
+
+
+admin.site.register(File)
+admin.site.register(FileHierarchy)
+admin.site.register(Limitation)
+admin.site.register(Requirement)
+admin.site.register(VerificationRun)
+admin.site.register(VerificationResult)
