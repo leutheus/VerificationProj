@@ -4,8 +4,7 @@ from vericloud import views
 
 urlpatterns = patterns('',
     url(r'^addMark/$', views.addmark, name='addmark'),
-    url(r'^addFile/$', views.addfile, name='addfile'),
-    url(r'^newFile/$', views.newfile, name="'newfile"),
+    url(r'^testfile/$', views.addfile, name="'addfile"),
     url(r'^listFiles/$', views.listfiles, name="listfiles"),
     url(r'^requirements/$', views.listreq, name="listreq"),
     url(r'^limitations/$', views.listlim, name="listlim"),

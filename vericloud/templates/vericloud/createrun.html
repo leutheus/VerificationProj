@@ -4,12 +4,26 @@
 {% endblock %}
 
 {%block js %}
-        <script src="https://dl.dropboxusercontent.com/u/6804788/jquery-2.0.3.min.js"></script>
+        <!--<script src="https://dl.dropboxusercontent.com/u/6804788/jquery-2.0.3.min.js"></script>  -->
         <style>
-             input[type=number] {
-                width: 200px;
+            div.scrollcontainer {
+	 		    height: 85%;
+	 		    overflow: auto;
 
-             }
+	 		    width: 98%;
+	 		    margin-left: 1%;
+	 		    margin-top: 1%;
+	 		    display: inline-block;
+	 	    }
+
+	 	    #innen {
+	 		    height: 70%;
+	 	    }
+
+            input[type=number] {
+                width: 200px;
+            }
+
             input#list {
                 width: 200px;
             }
@@ -72,7 +86,8 @@
 
 {% block content %}
 <h2>New Run</h2>
-
+<div class="scrollcontainer">
+    <div id="innen">
 <form>
     <fieldset>
         <bold>Priority</bold><br>
@@ -115,9 +130,9 @@
         </select> <br> <br>
         </div>
         <div id="limitold">
-        <label class="limit">TimeLimit  (s):</label><input type="number" min="0" value="600" name="time" onchange="toggleDisabled()"> <br>
-        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onchange="toggleDisabled()"> <br>
-        <label class="limit">Processor Limit (1-8): </label><input  name="cpulimit" type="number" min="0" max="8" value="4" onchange="toggleDisabled()"><br>
+        <label class="limit">TimeLimit  (s):</label><input type="number" min="0" value="600" name="time" onfocus="toggleDisabled()"> <br>
+        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onfocus="toggleDisabled()"> <br>
+        <label class="limit">Processor Limit (1-8): </label><input  name="cpulimit" type="number" min="0" max="8" value="4" onfocus="toggleDisabled()"><br>
         </div>
     </fieldset><br>
 
@@ -132,8 +147,8 @@
         <br>
         </div>
         <div id="reqold">
-        <label class="limit">Processor count (1-8):</label><input type="number" min="1" max="8" value="4" name="count" onchange="reqToggleOld()"> <br>
-        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onchange="reqToggleOld()"> <br>
+        <label class="limit">Processor count (1-8):</label><input type="number" min="1" max="8" value="4" name="count" onfocus="reqToggleOld()"> <br>
+        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onfocus="reqToggleOld()"> <br>
         <label class="limit">Processor type: </label>
         <input id="list" list="cputype" name="cputype" value="Intel-Core-i7-2600 @ 3.40 GHz" onfocus="reqToggleOld()" >
         <datalist id="cputype" onchange="reqToggleOld()">
@@ -151,4 +166,6 @@
 
     <input type="submit" value="Do it!">
 </form>
+        </div>
+    </div>
 {% endblock %}

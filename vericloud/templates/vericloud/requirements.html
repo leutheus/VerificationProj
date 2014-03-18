@@ -62,8 +62,8 @@
     <label>Processor count (1-8):</label><input type="number" min="1" max="8" value="4" name="count"> <br>
     <label>Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem"> <br>
     <label>Processor type: </label>
-    <input list="cputype" name="cputype" value="Intel-Core-i7-2600 @ 3.40 GHz" >
-    <datalist id="cputype">
+    <input id="list"  list="cputype_list" name="cputype" value="Intel-Core-i7-2600 @ 3.40 GHz" >
+    <datalist id="cputype_list">
         <option value="AMD Phenom II X4 955">
         <option value="Intel Core i5-2400 @ 3.10 GHz">
         <option value="Intel Core i7-2600 @ 3.40 GHz">

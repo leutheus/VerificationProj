@@ -97,7 +97,10 @@ def listreq(request):
 
         #TODO validation!
         req = Requirement(processor_count=count, memory=mem, processor_type=proctype)
-        req.save()
+        try:
+            req.save()
+        except:
+            pass
     requirements = Requirement.objects.all()
     return render(request, 'vericloud/requirements.html', {
         'requirements': requirements,
@@ -114,9 +117,8 @@ def listlim(request):
         lim = Limitation(time_limit=time, memory_limit=mem, processor_limit=cpulim)
         try:
             lim.save()
-        except :
+        except:
             pass
-            print('already in')
     limitations = Limitation.objects.all()
     return render(request, 'vericloud/limitations.html', {
         'limitations': limitations,

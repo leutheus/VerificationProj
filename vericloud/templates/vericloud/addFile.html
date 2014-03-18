@@ -6,7 +6,7 @@
 <link href="https://dl.dropboxusercontent.com/u/6804788/codemirror.css" type="text/css" rel="stylesheet">
 <style>
 	.CodeMirror {
-		height: 200px;
+		height: 400px;
 		width: 800px;
 	}
 </style>
@@ -18,7 +18,7 @@
 
 <form action="/vcloud/addFile/" method="post" enctype="multipart/form-data" id="formFile">
 {% csrf_token %}
-<strong> <color="red">{{ error }} </color="red"> </strong>
+<strong> {{ error }} </strong>
 {{ form.as_p }}
 
 <input type="submit">
