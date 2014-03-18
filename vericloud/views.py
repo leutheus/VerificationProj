@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from vericloud.models import File, VerificationRun, VerificationResult, FileHierarchy
+from vericloud.models import File, VerificationRun, VerificationResult, FileHierarchy, Requirement, Limitation
 from django.core.files import File as Filez
 import hashlib
 
@@ -20,42 +20,51 @@ def index(request):
     return HttpResponse(template.render(context))
 
 
-def detail(request, benchmark_user):
-
-
-    runs = VerificationRun.objects.filter(user = benchmark_user)
-
-    return render(request, 'vericloud/rundetail.html', {
-        'runs' : runs,
+def createrun(request):
+    limits = Limitation.objects.all()
+    reqs = Requirement.objects.all()
+    return render(request, 'vericloud/createrun.html', {
+        'limits': limits,
+        'reqs': reqs,
     })
 
+
+def detail(request, benchmark_user):
+    if benchmark_user == 'all':
+        runs = VerificationRun.objects.all()
+    else:
+        runs = VerificationRun.objects.filter(user=benchmark_user)
+
+    return render(request, 'vericloud/rundetail.html', {
+        'runs': runs,
+    })
 
     return HttpResponse(benchmark_user)
 
 
-def newFile(request):
+def newfile(request):
     return HttpResponse("lulz")
 
 
-def addMark(request):
-    if (request.method == 'POST'):
+def addmark(request):
+    if request.method == 'POST':
         return HttpResponse("LOL")
     else:
         form = ContactForm()
 
     return render(request, 'vericloud/addMark.html', {
         'form': form,
-
     })
 
 
-def file(request, hash):
+def file(request, hashvalue):
 
-    f = open('/home/leutheus/workspace/VerifierCloud/testfiles/' + hash)
+    f = open('/home/leutheus/workspace/VerifierCloud/testfiles/' + hashvalue)
 
     return render(request, 'vericloud/fileDetail.html', {
         'file': f.read(),
     })
+
 
 def runresult(request, run_id):
     result = VerificationResult.objects.filter(run=run_id)
@@ -69,7 +78,7 @@ def runresult(request, run_id):
 
 
 def filehierarchy(request, file_hierarchy_id):
-    print(file_hierarchy_id)
+
     result = FileHierarchy.objects.filter(parent=file_hierarchy_id)
 
     for fh in result:
@@ -80,17 +89,51 @@ def filehierarchy(request, file_hierarchy_id):
     })
 
 
-def listFiles(request):
+def listreq(request):
+    if request.method == 'POST':
+        count = request.POST.get('count')
+        mem = request.POST.get('mem')
+        proctype = request.POST.get('cputype')
 
-    list = File.objects.all()
+        #TODO validation!
+        req = Requirement(processor_count=count, memory=mem, processor_type=proctype)
+        req.save()
+    requirements = Requirement.objects.all()
+    return render(request, 'vericloud/requirements.html', {
+        'requirements': requirements,
+    })
+
+
+def listlim(request):
+    if request.method == 'POST':
+        time = request.POST.get('time')
+        mem = request.POST.get('mem')
+        cpulim = request.POST.get('cpulimit')
+
+        #TODO validation!
+        lim = Limitation(time_limit=time, memory_limit=mem, processor_limit=cpulim)
+        try:
+            lim.save()
+        except :
+            pass
+            print('already in')
+    limitations = Limitation.objects.all()
+    return render(request, 'vericloud/limitations.html', {
+        'limitations': limitations,
+    })
+
+
+def listfiles(request):
+
+    filelist = File.objects.all()
 
     return render(request, 'vericloud/listFiles.html', {
-        'list': list,
+        'list': filelist,
 
     })
 
 
-def addFile(request):
+def addfile(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -100,7 +143,7 @@ def addFile(request):
             data = file.read()
             file.seek(0)
 
-            expResult = request.POST.get('expected_Result')
+            expresult = request.POST.get('expected_Result')
 
             hsh = hashlib.sha1()
             hsh.update(data)
@@ -108,19 +151,13 @@ def addFile(request):
 
             #check if file already in database
 
-
-
-
             return render(request, 'vericloud/fileDetail.html', {
                 'file': file,
                 'string': data,
-                'expResult': expResult,
+                'expResult': expresult,
                 'digest': sha1
 
             })
-
-
-
 
     else:
         form = FileForm()
@@ -141,3 +178,6 @@ class FileForm(forms.Form):
         widget=forms.RadioSelect())
 
 
+class RequirementForm(forms.Form):
+    processor_count = forms.CharField()
+    memory = forms.CharField()

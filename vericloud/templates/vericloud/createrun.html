@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}
+	 New Run
+{% endblock %}
+
+{%block js %}
+        <script src="https://dl.dropboxusercontent.com/u/6804788/jquery-2.0.3.min.js"></script>
+        <style>
+             input[type=number] {
+                width: 200px;
+
+             }
+            input#list {
+                width: 200px;
+            }
+
+            label.limit {
+                float:left;
+                width: 200px;
+                text-align: left;
+                margin-left: 20px;
+                margin-right: 0.5em;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            span {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 5px;
+                margin-left: 5px;
+            }
+            span.border {
+                border: 1px solid black;
+                margin: 8%;
+            }
+            fieldset {
+                width: 800px
+            }
+            span#urgent {
+                background-color: red;
+                padding-right: 50px;
+            }
+            span#high {
+                background-color: orange;
+                padding-right: 50px;
+            }
+            span#low {
+                background-color: green;
+                padding-right: 50px;
+            }
+        </style>
+
+        <script>
+            function toggleDisabled() {
+                document.getElementById('limitnew').style.opacity = 0.2;
+                document.getElementById('limitold').style.opacity = 1.0;
+            }
+            function toggleEnabled() {
+                document.getElementById('limitnew').style.opacity = 1.0;
+                document.getElementById('limitold').style.opacity = 0.2;
+            }
+            function reqToggleNew() {
+                document.getElementById('reqnew').style.opacity = 1.0;
+                 document.getElementById('reqold').style.opacity = 0.2;
+            }
+            function reqToggleOld() {
+                document.getElementById('reqnew').style.opacity = .2;
+                document.getElementById('reqold').style.opacity = 1.0;
+            }
+        </script>
+{% endblock %}
+
+{% block content %}
+<h2>New Run</h2>
+
+<form>
+    <fieldset>
+        <bold>Priority</bold><br>
+        <div class="prio">
+
+
+            <span class="border"><label><input type="radio" name="prio" value="urgent"><span id="urgent">Urgent</span></label></span>
+            <span class="border"><label><input type="radio" name="prio" value="high"><span id="high">High</span></label></span>
+            <span class="border"><label><input type="radio" name="prio" value="low" checked><span id="low">Low</span></label></span>
+         </div>
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        Output file pattern
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+        Command
+    </fieldset>
+
+    <br>
+
+    <fieldset>
+       Working directory
+    </fieldset>
+
+    <br>
+
+    <fieldset>Limitations <br> <br>
+        <div id="limitnew">
+        <label>One already available:</label>
+        <select onchange="toggleEnabled()">
+        {% for lim in limits %}
+            <option >{{lim}}</option>
+        {% endfor %}
+        </select> <br> <br>
+        </div>
+        <div id="limitold">
+        <label class="limit">TimeLimit  (s):</label><input type="number" min="0" value="600" name="time" onchange="toggleDisabled()"> <br>
+        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onchange="toggleDisabled()"> <br>
+        <label class="limit">Processor Limit (1-8): </label><input  name="cpulimit" type="number" min="0" max="8" value="4" onchange="toggleDisabled()"><br>
+        </div>
+    </fieldset><br>
+
+    <fieldset>Requirements<br><br>
+        <div id="reqnew">
+        <label id="reqid">One already available:</label>
+        <select onfocus="reqToggleNew()">
+        {% for req in reqs %}
+            <option>{{req}}</option>
+        {% endfor %}
+        </select> <br>
+        <br>
+        </div>
+        <div id="reqold">
+        <label class="limit">Processor count (1-8):</label><input type="number" min="1" max="8" value="4" name="count" onchange="reqToggleOld()"> <br>
+        <label class="limit">Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem" onchange="reqToggleOld()"> <br>
+        <label class="limit">Processor type: </label>
+        <input id="list" list="cputype" name="cputype" value="Intel-Core-i7-2600 @ 3.40 GHz" onfocus="reqToggleOld()" >
+        <datalist id="cputype" onchange="reqToggleOld()">
+        <option value="''" onchange="reqToggleOld()">
+        <option value="AMD Phenom II X4 955" onchange="reqToggleOld()">
+        <option value="Intel Core i5-2400 @ 3.10 GHz" onchange="reqToggleOld()">
+        <option value="Intel Core i7-2600 @ 3.40 GHz" onchange="reqToggleOld()">
+        <option value="Intel Core i7-2600K @ 3.40 GHz" onchange="reqToggleOld()">
+        </datalist>
+        </div>
+    </fieldset><br>
+
+    <fieldset>User: {{user}}</fieldset><br>
+
+
+    <input type="submit" value="Do it!">
+</form>
+{% endblock %}

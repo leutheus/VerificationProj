@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}
+	 Requirements
+{% endblock %}
+
+{%block js %}
+ <style>
+     form {
+        border: 1px solid black;
+        background-color: #f3f2ed;
+        width: 450px;
+        margin-left: 10%;
+        padding: 10px;
+     }
+     label {
+        float:left;
+        width: 190px;
+        text-align: left;
+        margin-left: 20px;
+        margin-right: 0.5em;
+        white-space: nowrap;
+        overflow: hidden;
+     }
+     input {
+        width: 200px;
+     }
+     input[type=submit] {
+        margin-left: 220px;
+     }
+     div.scrollcontainer {
+	 		height: 93%;
+	 		overflow: auto;
+
+	 		width: 80%;
+	 		margin-left: 10%;
+
+	 		display: inline-block;
+	 	}
+	 	#innen {
+	 		height: 80%;
+	 	}
+	 	.sortierbar {
+	 		border: 1px solid black;
+	 		border-radius: 5px;
+
+	 		background-color: #f3f2ed;
+	 	}
+	 	th {
+	 		min-width: 250px;
+	 		background-color: white;
+	 	}
+	 	tr  {
+	 		display: table-row;
+	 	}
+
+</style>
+{% endblock %}
+{% block content %}
+    <h2>Add new Requirement</h2>
+    <form action="/vcloud/requirements/" method="post">
+        {% csrf_token %}
+    <label>Processor count (1-8):</label><input type="number" min="1" max="8" value="4" name="count"> <br>
+    <label>Memory in MB (max 32000):</label><input type="number" value="2000" max="32000" min="0" name="mem"> <br>
+    <label>Processor type: </label>
+    <input list="cputype" name="cputype" value="Intel-Core-i7-2600 @ 3.40 GHz" >
+    <datalist id="cputype">
+        <option value="AMD Phenom II X4 955">
+        <option value="Intel Core i5-2400 @ 3.10 GHz">
+        <option value="Intel Core i7-2600 @ 3.40 GHz">
+        <option value="Intel Core i7-2600K @ 3.40 GHz">
+    </datalist>
+        <br>
+        <br>
+    <input type="submit">
+</form>
+
+    <h2>All Requirements</h2>
+        <div class="scrollcontainer">
+            <div id="innen">
+                <table class="sortierbar">
+    <colgroup>
+       <col span="1" style="width: 10%;">
+       <col span="1" style="width: 30%;">
+       <col span="1" style="width: 50%;">
+    </colgroup>
+	<thead>
+		<tr>
+			<th class="sortierbar vorsortiert+" >Processor count</th>
+			<th class="sortierbar">Memory</th>
+			<th class="sortierbar">Processor model</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for req in requirements %}
+		<tr>
+			<td >{{ req.processor_count }}</td>
+			<td>{{ req.memory }}</td>
+			<td>{{ req.processor_type }}</td>
+
+		</tr>
+		{% endfor %}
+
+
+	</tbody>
+</table>
+            </div>
+        </div>
+{% endblock %}

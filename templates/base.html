@@ -4,6 +4,25 @@
     <head>
         <title>{% block title %}My amazing site{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="https://dl.dropboxusercontent.com/u/6804788/styles.css">
+        <style>
+            div[id=secondary] ul {
+                list-style-type:none;
+            }
+            div[id=secondary] ul>li {
+                background-color: #f3f2ed;
+                border: 1px solid black;
+                margin-right: 40px;
+                margin-bottom: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                text-align:center;
+
+            }
+            div.content {
+                padding-left: 10px;
+            }
+
+        </style>
         {% block js %} {% endblock %}
     </head>
     <body>
@@ -31,14 +50,16 @@
                 </div>
                 </div>
             </div>
-            <div class="yui-b">
+            <div class="yui-b" >
                 <div id="secondary"> <strong>Navigation </strong>
                 <ul>
-                    <li><a href="/vcloud/{{user.username}}">{{user.username}} Runs </a> </li>
-                    <li> Add Limitation </li>
-                    <li> Add Requirement</li>
+                    <li><a href="/vcloud/all/">All runs</a></li>
+                    <li><a href="/vcloud/{{user.username}}">My Runs </a> </li>
                     <li> <a href ="/vcloud/listFiles/">All Files </a></li>
-                    <li> <a href="/vcloud/requirements/">All Requirements</a></li>
+                    <li> <a href="/vcloud/requirements/">Requirements</a></li>
+                    <li> <a href="/vcloud/limitations/">Limitations</a></li>
+                    <li> <a href="/vcloud/createrun/">Create a run</a></li>
+                    <li> <a href="/vcloud/testfile/">Verify a file</a></li>
                 </ul> 
                 </div>
             </div>

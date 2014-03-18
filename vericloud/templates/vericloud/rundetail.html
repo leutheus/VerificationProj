@@ -12,7 +12,7 @@
 	 		height: 93%;
 	 		overflow: auto;
 
-	 		width: 99%;
+	 		width: 98%;
 	 		margin-left: 1%;
 	 		margin-top: 1%;
 	 		display: inline-block;
@@ -46,7 +46,7 @@
     <table class="sortierbar" width="98%">
 	    <thead>
 		    <tr>
-			    <th class="sortierbar vorsortiert+">Result for ID </th>
+			    <th class="sortierbar vorsortiert+">Link to Result </th>
 			    <th class="sortierbar" ">Command</th>
 			    <th class="sortierbar">Timestamp </th>
 			    <th class="sortierbar">Limitation </th>
@@ -58,7 +58,7 @@
 		{% for run in runs %}
 		    <tr>
 			    <td > <a href="/vcloud/results/{{run.id}}">{{ run.id }}</a>  </td>
-			    <td>  <textarea style="width: 600px; font-size: .9em">{{ run.command }}</textarea> </td>
+			    <td>  <textarea style="width: 600px; font-size: .85em" rows="3">{{ run.command }}</textarea> </td>
 			    <td> {{ run.timestamp }} </td>
 			    <td>{{ run.limitations }} </td>
                 <td> {{ run.requirements }} </td>

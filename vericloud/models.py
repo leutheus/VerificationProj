@@ -25,7 +25,7 @@ class FileHierarchy(models.Model):
         db_table = 'file_hierarchy'
         verbose_name_plural = 'FileHierarchies'
         unique_together = ("file", "parent")
-        index_together = [["file", "parent"],]
+        index_together = [["file", "parent"], ]
 
 class Limitation(models.Model):
     time_limit = models.IntegerField(default=0)
@@ -40,6 +40,7 @@ class Limitation(models.Model):
 
     class Meta:
         db_table = 'limitations'
+        unique_together = [["time_limit", "memory_limit", "processor_limit"]]
 
 
 class Requirement(models.Model):
@@ -55,6 +56,7 @@ class Requirement(models.Model):
 
     class Meta:
         db_table = 'requirements'
+        unique_together = [["processor_count", "memory", "processor_type"]]
 
 
 class VerificationRun(models.Model):
